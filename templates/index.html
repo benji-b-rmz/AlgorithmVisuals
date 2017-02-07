@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Welcome!{% endblock %}
+{% block content %}
+
+    Hello. WIP:
+    <ul>
+        <li>
+            <a href="{{ url_for('maze_gen') }}">Maze Generator</a>
+        </li>
+        <li>
+            <a href="{{ url_for('maze_astar') }}">Maze Solver using A* algorithm</a>
+        </li>
+        <li>
+            <a href="{{ url_for('maze_3d') }}">Maze Generator in 3D, DFS backtracker</a>
+        </li>
+
+    </ul>
+
+
+{% endblock %}
