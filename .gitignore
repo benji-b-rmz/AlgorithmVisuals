@@ -38,6 +38,11 @@ coverage.xml
 # Translations
 *.mo
 
+#IntelliJ stuff
+.idea
+
+#my virualt env
+algvisuals/
 
 # Rope
 .ropeproject
