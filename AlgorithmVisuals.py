@@ -19,6 +19,9 @@ def maze_astar():
 def maze_3d():
     return render_template('search/dfs3d.html')
 
+@app.route('/sort/bubble_sort')
+def bubble_sort():
+    return render_template('sort/bubble_sort.html')
 
 
 
