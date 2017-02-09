@@ -1,5 +1,6 @@
 # AlgorithmVisuals #
-Algorithm Visualizations using webGL
+Algorithm Visualizations using webGL libraries:
+Three.JS, PixiJS
 
 ## Setup: ##
 

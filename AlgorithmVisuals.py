@@ -29,5 +29,5 @@ def bubble_sort():
 
 
 if __name__ == '__main__':
-    app.debug = True
+    app.debug= True
     app.run()

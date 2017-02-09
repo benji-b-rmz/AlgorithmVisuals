@@ -16,16 +16,21 @@ function init(){
         //generate a circle with a random radius, add it to the array
         var circle = new Circle(i, window.innerHeight/2, Math.floor(Math.random()*20)+10);
         circle_array.push(circle);
-        //stage.addChild(circle);
+        stage.addChild(circle.graphic);
 
     }
     document.body.appendChild(renderer.view);
 }
-
+var sorting = true;
 function animate(){
 
     requestAnimationFrame(animate);
-    bubbleSort(circle_array);
+    //bubbleSort(circle_array);
+    insertionSort(circle_array);
+
+    // if (sorting){
+    //     sorting = false;
+    // }
     displayArray(circle_array);
     renderer.render(stage);
 }
@@ -40,7 +45,7 @@ function Circle(x, y, radius ) {
         this.graphic.beginFill(0xff00ff);
         this.graphic.drawCircle((this.x/NUM_ELEMENTS) * window.innerWidth + MAX_RADIUS, this.y, this.radius);
         this.graphic.endFill();
-        stage.addChild(this.graphic);
+        //stage.addChild(this.graphic);
     }
 
 }
@@ -67,5 +72,22 @@ function bubbleSort(array){
             }
         }
     }while(swap);
+
+}
+
+function insertionSort(array){
+
+    for( var i = 1; i < array.length; i++){
+
+        var j = i;
+        while( (j > 0) && (array[j-1].radius > array[j].radius) ){
+            var temp = array[j];
+            array[j] = array[j-1];
+            array[j-1] = temp;
+            j = j-1;
+            console.log(j);
+        }
+        console.log(array);
+    }
 
 }
