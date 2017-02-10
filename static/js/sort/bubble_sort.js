@@ -26,12 +26,14 @@ function animate(){
 
     requestAnimationFrame(animate);
     //bubbleSort(circle_array);
-    insertionSort(circle_array);
-
+    //insertionSort(circle_array);
+    var array_copy = circle_array.slice();
+    mergeSort(circle_array, 0, circle_array.length, array_copy);
     // if (sorting){
     //     sorting = false;
     // }
     displayArray(circle_array);
+    console.log(circle_array);
     renderer.render(stage);
 }
 
@@ -89,5 +91,44 @@ function insertionSort(array){
         }
         console.log(array);
     }
+
+}
+
+
+function merge(array, startIndex, midIndex, endIndex, workArray){
+
+    var i = Math.abs(startIndex), j = Math.abs(midIndex);
+
+    for(var k  = Math.abs(startIndex); k < endIndex; k++){
+        console.log("i = " + i + ", startIndex = " + startIndex);
+        if ( i < midIndex && (j >= endIndex || array[i].radius <= array[j].radius)){
+            console.log(array[i].radius + "is less than: " + array[j].radius);
+            workArray[k] = array[i];
+            i = i + 1;
+
+        }else{
+
+            workArray[k] = array[j];
+            j = j + 1;
+        }
+
+    }
+
+}
+
+
+function mergeSort(array, startIndex, endIndex, workarray){
+
+    if((endIndex - startIndex) < 2){
+        return;
+    }
+
+    var midIndex = Math.floor((endIndex+startIndex)/2);
+
+    mergeSort(array, startIndex, midIndex, workarray);
+    mergeSort(array, midIndex, endIndex, workarray);
+
+    //merge the resulting arrays:
+    merge(workarray, startIndex, midIndex, endIndex, array);
 
 }
