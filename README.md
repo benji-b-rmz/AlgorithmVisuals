@@ -6,7 +6,7 @@ Three.JS, PixiJS
 
 To set up the environment simply go to parent directory and run:
 
-`$ pip install requirements.txt`
+`$ pip install -r requirements.txt`
 
 Once dependencies are done installing run the Flask application:
 
