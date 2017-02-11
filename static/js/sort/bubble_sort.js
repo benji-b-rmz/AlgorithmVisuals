@@ -132,3 +132,51 @@ function mergeSort(array, startIndex, endIndex, workarray){
     merge(workarray, startIndex, midIndex, endIndex, array);
 
 }
+
+
+function siftDown(array, start, end){
+
+    var root = start;
+    var swap = null;
+    while ((array.getIndex(root) - 1) <= end){
+
+        var child = array[array.getIndex(root) - 1];
+        swap = root;
+
+        if (array[array.getIndex(swap)].radius < array[array.getIndex(child)].radius){
+            swap = child;
+        }
+        if ((array.getIndex(child) > end) && (array[getIndex(swap)].radius < array[getIndex(child+1)].radius)){
+            swap = array[array.getIndex(child) + 1];
+        }
+        if (swap == root){
+            return
+        }
+        else{
+            swap(array[root], array[swap]);
+            root = swap;
+        }
+
+
+    }
+
+}
+
+function heapify(array, count){
+
+
+
+}
+
+function heapSort(array, length){
+
+    heapify(array, count);
+
+    var end = length - 1;
+
+    while(end > 0){
+
+    }
+
+
+}
