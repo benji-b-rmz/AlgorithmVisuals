@@ -134,6 +134,14 @@ function mergeSort(array, startIndex, endIndex, workarray){
 }
 
 
+function swap(array, obj1, obj2) {
+
+    var temp = obj1;
+    array[getIndex(obj2)] = obj1;
+    array[getIndex(obj1)] = temp;
+
+}
+
 function siftDown(array, start, end){
 
     var root = start;
@@ -153,7 +161,7 @@ function siftDown(array, start, end){
             return
         }
         else{
-            swap(array[root], array[swap]);
+            swap(array, array[root], array[swap]);
             root = swap;
         }
 
