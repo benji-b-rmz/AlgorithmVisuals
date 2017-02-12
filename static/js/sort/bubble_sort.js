@@ -26,12 +26,10 @@ function animate(){
 
     requestAnimationFrame(animate);
     //bubbleSort(circle_array);
-    //insertionSort(circle_array);
+    insertionSort(circle_array);
     var array_copy = circle_array.slice();
-    mergeSort(circle_array, 0, circle_array.length, array_copy);
-    // if (sorting){
-    //     sorting = false;
-    // }
+    //mergeSort(circle_array, 0, circle_array.length, array_copy);
+
     displayArray(circle_array);
     console.log(circle_array);
     renderer.render(stage);
@@ -66,9 +64,7 @@ function bubbleSort(array){
         swap = false;
         for(var i = 0; i < array.length-1; i++){
             if(array[i].radius > array[i+1].radius){
-                var temp = array[i];
-                array[i] = array[i+1];
-                array[i+1] = temp;
+                swapElements(array, i, i+1);
                 swap = true;
                 console.log(array);
             }
@@ -83,9 +79,7 @@ function insertionSort(array){
 
         var j = i;
         while( (j > 0) && (array[j-1].radius > array[j].radius) ){
-            var temp = array[j];
-            array[j] = array[j-1];
-            array[j-1] = temp;
+            swapElements(array, j-1, j);
             j = j-1;
             console.log(j);
         }
@@ -116,7 +110,6 @@ function merge(array, startIndex, midIndex, endIndex, workArray){
 
 }
 
-
 function mergeSort(array, startIndex, endIndex, workarray){
 
     if((endIndex - startIndex) < 2){
@@ -134,12 +127,10 @@ function mergeSort(array, startIndex, endIndex, workarray){
 }
 
 
-function swap(array, obj1, obj2) {
-
-    var temp = obj1;
-    array[getIndex(obj2)] = obj1;
-    array[getIndex(obj1)] = temp;
-
+function swapElements(array, i, i2) {
+    var temp = array[i];
+    array[i] = array[i2];
+    array[i2] = temp;
 }
 
 function siftDown(array, start, end){
