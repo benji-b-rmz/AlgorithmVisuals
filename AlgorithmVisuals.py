@@ -23,6 +23,9 @@ def maze_3d():
 def bubble_sort():
     return render_template('sort/bubble_sort.html')
 
+@app.route('/noise/perlin_branches')
+def perlin_branches():
+    return render_template('noise/perlin_branches.html')
 
 
 

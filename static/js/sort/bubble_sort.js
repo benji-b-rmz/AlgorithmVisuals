@@ -26,12 +26,16 @@ function animate(){
 
     requestAnimationFrame(animate);
     //bubbleSort(circle_array);
-    insertionSort(circle_array);
+    //insertionSort(circle_array);
     var array_copy = circle_array.slice();
-    //mergeSort(circle_array, 0, circle_array.length, array_copy);
+    if (sorting){
+        mergeSort(circle_array, 0, circle_array.length, array_copy);
+        console.log(circle_array);
+        sorting = false;
+    }
 
     displayArray(circle_array);
-    console.log(circle_array);
+    // console.log(circle_array);
     renderer.render(stage);
 }
 
