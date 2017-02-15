@@ -1,6 +1,6 @@
 /**
- * Created by benji on 2/12/17.
- * modified version of Daniel Shiffman's video on perlin noise with P5 JS,
+ * Created by Benji on 2/12/17.
+ * a modified version of Daniel Shiffman's video on perlin noise with P5 JS,
  *  find him here:
  *   http://patreon.com/codingtrain
  *  https://youtu.be/BjoM9oKOAKY
@@ -13,7 +13,7 @@ function Particle() {
     this.vel = createVector(0, 0);
     this.acc = createVector(0, 0);
     this.maxspeed = 4;
-    this.h = 100;
+    this.h = 0;
     this.h = true;
 
     this.prevPos = this.pos.copy();
@@ -39,17 +39,13 @@ function Particle() {
 
     this.show = function() {
         stroke(this.h, 255, 255, 25);
-        if (this.dir == true){
-            this.h = this.h +1;
-        }else{
-            this.h = this.h - 1;
+
+        this.h = this.h +1;
+
+        if (this.h >= 255){
+            this.h = 0;
         }
-        if (this.h >= 200){
-            this.dir = false;
-        }
-        if(this.h <= 100){
-            this.dir = true
-        }
+
         strokeWeight(4);
         line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
         this.updatePrev();
@@ -82,10 +78,6 @@ function Particle() {
 
 }
 
-// Daniel Shiffman
-// http://codingtra.in
-// http://patreon.com/codingtrain
-// Code for: https://youtu.be/BjoM9oKOAKY
 
 var cols, rows;
 
@@ -100,11 +92,23 @@ var scl = 10;
 
 var flowfield = [];
 
+var cnv;
+
+
+
+function centerCanvas() {
+
+    var x = (windowWidth - width)/2;
+    var y = (windowHeight - height)/2;
+    cnv.position(x, y);
+
+}
 
 
 function setup() {
     background(4);
-    createCanvas(800, 800);
+    cnv = createCanvas(window.innerWidth, window.innerHeight);
+    centerCanvas();
     colorMode(HSB, 255);
 
 
@@ -118,12 +122,11 @@ function setup() {
     for (var i = 0; i < 1000; i++) {
         particles[i] = new Particle();
     }
-    fr = createP('');
+}
 
-
-
-
-    // particles[0] = new Particle();
+function windowResized(){
+    setup();
+    centerCanvas();
 }
 
 function draw() {
@@ -147,14 +150,6 @@ function draw() {
             flowfield[index] = v;
 
             xoff += incr;
-
-            // stroke(0,50);
-            // push();
-            // translate(x*scl, y * scl);
-            // rotate(v.heading());
-            // line(0, 0, scl, 0);
-            //
-            // pop();
 
         }
         yoff += incr;
