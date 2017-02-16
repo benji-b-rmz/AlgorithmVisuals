@@ -84,9 +84,9 @@ var cols, rows;
 var zoff = 0;
 
 var fr;
-var incr = 0.01;
+var incr = 0.001;
 var particles = [];
-var scl = 10;
+var scl = 40;
 
 
 
@@ -109,7 +109,7 @@ function setup() {
     background(4);
     cnv = createCanvas(window.innerWidth, window.innerHeight);
     centerCanvas();
-    colorMode(HSB, 255);
+    // colorMode(HSB, 255);
 
 
     cols = floor(width / scl);
@@ -130,6 +130,7 @@ function windowResized(){
 }
 
 function draw() {
+    background(200,200,200);
 
     randomSeed(10);
 
@@ -158,10 +159,17 @@ function draw() {
     }
 
     for (var i = 0; i < particles.length; i ++){
+        // stroke(111);
+        // line(particles[i].pos.x, particles[i].pos.y, particles[i+1].pos.x, particles[i+1].pos.y);
+        stroke(255,0,0);
+        strokeWeight(4);
+
+        point(particles[i].pos.x, particles[i].pos.y);
         particles[i].follow(flowfield);
         particles[i].update();
-        particles[i].show();
+        // particles[i].show();
         particles[i].edges();
+
     }
     fr.html(floor(frameRate()));
 
