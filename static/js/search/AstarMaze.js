@@ -2,8 +2,6 @@
  * Created by benji on 2/1/17.
  */
 
-
-
 /*
    Solving a randomly generated maze with the A* algorithm
 
@@ -182,9 +180,7 @@ function Cell (col, row){
             return undefined;
         }
 
-
     }
-
 
 }
 

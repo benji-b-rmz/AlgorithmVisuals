@@ -8,7 +8,6 @@
 
 // Using THREE js to make a DFS recursive backtracker to generate a maze
 
-
 var scene, camera, renderer, controls;
 var geometry, material, mesh;
 
@@ -30,8 +29,6 @@ var zOffSet = - (CUBE_SIZE * LAYERS)/2;
 init();
 animate();
 var currentCell;
-
-
 
 
 function getThreeIndex(i, j, k){
@@ -258,11 +255,14 @@ function make3DArray(rows, cols, layers){
 
     var arr = [];
     for(var i = 0; i < cols; i++){
-
         arr[i] = [];
-
         for(var j = 0; j < rows; j ++){
             arr[i][j] = [];
+            for(var k = 0; k < layers; k++){
+                var newCell = new ThreeCell(i,j,k);
+                newCell.addToScene();
+                arr[i][j].push(newCell);
+            }
         }
     }
 
@@ -271,6 +271,7 @@ function make3DArray(rows, cols, layers){
 }
 // inspired by Matthew Crumley's answer in stack overflow for creating multidimensional arrays
 // http://stackoverflow.com/questions/966225/how-can-i-create-a-two-dimensional-array-in-javascript
+// extended to 3d, initializing the cell objects here
 
 function init(){
 
@@ -283,18 +284,7 @@ function init(){
     camera.position.z = 1000;
 
     gridCells = make3DArray(ROWS, COLS, LAYERS);
-    for(var i = 0; i < COLS; i ++){
 
-        for (var j = 0; j < ROWS; j++){
-
-            for (var k = 0; k < LAYERS; k++){
-                var newCell = new ThreeCell(i,j,k);
-                newCell.addToScene();
-                gridCells[i][j].push(newCell);
-
-            }
-        }
-    }
 
     currentCell = gridCells[0][0][0];
     currentCell.isCurrent = true;
