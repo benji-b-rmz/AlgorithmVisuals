@@ -28,7 +28,9 @@ def perlin_branches():
     return render_template('noise/perlin_branches.html')
 
 
-
+@app.route('/physics/attractor')
+def phys_attractor():
+    return render_template('/physics/attractor.html')
 
 
 if __name__ == '__main__':

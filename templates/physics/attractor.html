@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <script src="{{ url_for('static', filename='js/libs/p5.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.7/addons/p5.dom.min.js"></script>
+    <script src="{{ url_for('static', filename='js/physics/attractor.js') }}"></script>
+
+{% endblock %}
