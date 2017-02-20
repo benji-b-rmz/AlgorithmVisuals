@@ -7,6 +7,7 @@
 
 var NUM_PARTICLES = 200;
 var PARTICLES = [];
+var ATTRACTORS = [];
 var F_G; // simulated force of gravity -y force
 
 function Particle() {
@@ -79,15 +80,32 @@ function setup() {
 
 function draw() {
 
+    // var mouseAttractor = createVector(mouseX, mouseY); //grab the location of the mouse
+    // console.log(mouseAttractor);
+    if (mouseIsPressed){
+        ellipse(mouseX, mouseY, 50, 50);
+        var mouseAttractor = createVector(mouseX, mouseY);
+        ATTRACTORS.push(mouseAttractor);
+    }
+
+    //use vector subtraction to get the direction vector from the piont to the mouse
     for (var i = 0; i < PARTICLES.length; i ++){
         PARTICLES[i].applyForce(F_G);
+        for (var j = 0; j  < ATTRACTORS.length; j++){
+            var force = createVector(
+                ATTRACTORS[j].x - PARTICLES[i].pos.x,
+                ATTRACTORS[j].y - PARTICLES[i].pos.y
+            );
+            PARTICLES[i].applyForce(force);
+        }
         PARTICLES[i].update();
         PARTICLES[i].bottom(); // check if the particle fell off screen
         PARTICLES[i].show(); //display the updated location
     }
     stroke(200);
     strokeWeight(4);
-    point(50,50);
+    point(mouseX, mouseY);
+
 
 
 }
