@@ -85,8 +85,9 @@ var zoff = 0;
 
 var fr;
 var incr = 0.001;
+var num_particles = 1000;
 var particles = [];
-var scl = 40;
+var scl = 10;
 
 
 
@@ -109,7 +110,7 @@ function setup() {
     background(4);
     cnv = createCanvas(window.innerWidth, window.innerHeight);
     centerCanvas();
-    // colorMode(HSB, 255);
+    colorMode(HSB, 255);
 
 
     cols = floor(width / scl);
@@ -119,7 +120,7 @@ function setup() {
 
     flowfield = new Array(cols * rows);
     //
-    for (var i = 0; i < 1000; i++) {
+    for (var i = 0; i < num_particles; i++) {
         particles[i] = new Particle();
     }
 }
@@ -130,7 +131,7 @@ function windowResized(){
 }
 
 function draw() {
-    background(200,200,200);
+    // background(200,200,200);
 
     randomSeed(10);
 
@@ -164,10 +165,10 @@ function draw() {
         stroke(255,0,0);
         strokeWeight(4);
 
-        point(particles[i].pos.x, particles[i].pos.y);
+        // point(particles[i].pos.x, particles[i].pos.y);
         particles[i].follow(flowfield);
         particles[i].update();
-        // particles[i].show();
+        particles[i].show();
         particles[i].edges();
 
     }
