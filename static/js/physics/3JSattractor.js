@@ -7,8 +7,8 @@ var scene, camera, renderer, controls;
 var geometry, material, mesh;
 
 var particles = [];
-var numParticles = 20;
-var shapeSize = 100;
+var numParticles = 100;
+var shapeSize = 3;
 
 
 init();
@@ -44,9 +44,9 @@ function createParticles(numP){
         var material = new THREE.MeshBasicMaterial({
             color: 0xff00ff, wireframe:false
         });
-        var x = getRandomInt(0, 100),
-            y = getRandomInt(0, 100),
-            z = getRandomInt(0, 100);
+        var x = getRandomInt(-50, 50),
+            y = getRandomInt(-50, 50),
+            z = getRandomInt(-50, 50);
 
 
 
@@ -65,7 +65,7 @@ function init(){
     scene = new THREE.Scene();
 
     //the camera obj parameters = (FoV, aspect ratio, znear, zfar)
-    camera = new THREE.PerspectiveCamera(90, (window.innerWidth, window.innerHeight), 0.1, 10000);
+    camera = new THREE.PerspectiveCamera(90, (window.innerWidth/window.innerHeight), 0.1, 10000);
     camera.position.z = 100;
 
     //lights, positioned above initially
@@ -89,21 +89,8 @@ function init(){
 
     // now create and add the objects to the scene
 
-    // createParticles(numParticles);
+    createParticles(numParticles);
 
-     var shape = new THREE.BoxGeometry(shapeSize, shapeSize, shapeSize);
-        var material = new THREE.MeshBasicMaterial({
-            color: 0xff00ff, wireframe:false
-        });
-        var x = getRandomInt(0, 100),
-            y = getRandomInt(0, 100),
-            z = getRandomInt(0, 100);
-
-
-
-        var particle = new Particle(shape, material, x, y, z );
-        particle.addToScene();
-        particles.push(particle);
 
     // add the canvas to the webpage:
     document.body.appendChild(renderer.domElement);
