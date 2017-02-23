@@ -33,6 +33,11 @@ def phys_attractor():
     return render_template('/physics/attractor.html')
 
 
+@app.route('/physics/3dattractor')
+def three_attractor():
+    return render_template('/physics/3d_attractor.html')
+
+
 if __name__ == '__main__':
     app.debug= True
     app.run()

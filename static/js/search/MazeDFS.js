@@ -194,9 +194,6 @@ function make2DArray(cols){
 
 function init(){
 
-    WIDTH = window.innerWidth;
-    HEIGHT = window.innerHeight;
-
     scene = new THREE.Scene();
 
     camera = new THREE.PerspectiveCamera( 90, window.innerWidth/window.innerHeight, 0.1, 10000);
@@ -286,9 +283,6 @@ window.addEventListener('resize', resizeTHREE, false);
 
 
 function resizeTHREE(){
-
-    WIDTH = window.innerWidth;
-    HEIGHT = window.innerHeight;
 
     camera.aspect = window.innerWidth/window.innerHeight;
     camera.updateProjectionMatrix();
