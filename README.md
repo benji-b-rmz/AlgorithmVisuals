@@ -1,5 +1,5 @@
-# AlgorithmVisuals #
-Algorithm Visualizations using webGL libraries:
+# WebGL #
+Visuals using webGL libraries:
 Three.JS, PixiJS
 
 ## Setup: ##
@@ -10,7 +10,7 @@ To set up the environment simply go to parent directory and run:
 
 Once dependencies are done installing run the Flask application:
 
-`$ python AlgorithmVisuals.py`
+`$ python app.py`
 
 Then open up your browser and go to __localhost:5000__
 
