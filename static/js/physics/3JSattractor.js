@@ -10,8 +10,8 @@ var particles = [];
 var numParticles = 20;
 var shapeSize = 2;
 
-var attractor,
-    amplitude = 4,
+var attractors = [],
+    amplitude = 1,
     angle = 0.0,
     frequency = 0.1;
 
@@ -98,13 +98,15 @@ function createParticles(numP){
 }
 
 
+
+
 function animateAttractor(){
 
     angle += frequency;
 
-    attractor.mesh.position.x = 2 * amplitude * Math.cos(angle);
-    attractor.mesh.position.y = amplitude * Math.sin(angle);
-    attractor.mesh.position.z = amplitude * Math.cos(angle);
+    attractor.mesh.position.x += amplitude * Math.cos(angle);
+    attractor.mesh.position.y += amplitude * Math.sin(angle);
+    attractor.mesh.position.z += amplitude * Math.cos(angle);
 
 }
 
@@ -139,14 +141,25 @@ function init(){
     // now create and add the objects to the scene
     createParticles(numParticles);
 
-    attractor = new Particle(
-                new THREE.BoxGeometry(10, 10, 10),
-                new THREE.MeshLambertMaterial({
-                    wireframe:false,
-                    color: 0xffff00
-                }),
-                0,0,0);
+    var attractor = new Particle(
+        new THREE.BoxGeometry(5, 5, 5),
+        new THREE.MeshLambertMaterial({
+            wireframe:false,
+            color: 0xffff00
+        }),
+        -20,0,0);
     attractor.addToScene();
+    attractors.push(attractor);
+
+    var attractor2 = new Particle(
+        new THREE.BoxGeometry(5, 5, 5),
+        new THREE.MeshLambertMaterial({
+            wireframe:false,
+            color: 0xffff00
+        }),
+        20,-1,0);
+    attractor2.addToScene();
+    attractors.push(attractor2);
 
 
 
@@ -162,18 +175,22 @@ function animate() {
 
     controls.update(); //recalc camera based on control input
 
-    animateAttractor();
+    // animateAttractor();
     for ( var i = 0; i < particles.length; i ++){
 
         // get the direction of the force by subtraction then normalize
-        var forceVec = new THREE.Vector3( (attractor.mesh.position.x - particles[i].mesh.position.x),
-                                        (attractor.mesh.position.y - particles[i].mesh.position.y),
-                                        (attractor.mesh.position.z - particles[i].mesh.position.z));
+        for (var j = 0; j < attractors.length; j++){
+            var forceVec = new THREE.Vector3( (attractors[j].mesh.position.x - particles[i].mesh.position.x),
+                (attractors[j].mesh.position.y - particles[i].mesh.position.y),
+                (attractors[j].mesh.position.z - particles[i].mesh.position.z));
 
-        forceVec.normalize(); // normalize the vector so we only have the direction
-        forceVec.multiplyScalar(0.2); // reduce the strength of the force
+            forceVec.normalize(); // normalize the vector so we only have the direction
+            forceVec.multiplyScalar(0.2); // reduce the strength of the force
 
-        particles[i].applyForce(forceVec);
+            particles[i].applyForce(forceVec);
+
+        }
+
 
         particles[i].update();
 
