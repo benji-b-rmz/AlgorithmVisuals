@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Mouse Capture{% endblock %}
+
+{% block content %}
+
+    {% block js_files %}
+
+        <script src="{{ url_for('static', filename='js/libs/three.min.js') }}"></script>
+{#        <script src="{{ url_for('static', filename='js/OrbitControls.js') }}"></script>#}
+        <script src="{{ url_for('static', filename='js/interactive/mouseCap.js') }}"></script>
+    {% endblock %}
+{% endblock %}

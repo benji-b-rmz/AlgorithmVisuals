@@ -6,9 +6,12 @@
 var scene, camera, renderer, controls;
 var geometry, material, mesh;
 
-var particles = [];
-var numParticles = 20;
-var shapeSize = 2;
+var particles = [],
+    numParticles = 200,
+    shapeSize = 2,
+    sceneSize = 100;
+
+
 
 var attractors = [],
     amplitude = 1,
@@ -85,9 +88,9 @@ function createParticles(numP){
         var material = new THREE.MeshLambertMaterial({
             color: 0xff0000, wireframe:false
         });
-        var x = getRandomInt(-50, 50),
-            y = getRandomInt(-50, 50),
-            z = getRandomInt(-50, 50);
+        var x = getRandomInt(-sceneSize/2, sceneSize/2),
+            y = getRandomInt(-sceneSize/2, sceneSize/2),
+            z = getRandomInt(-sceneSize/2,sceneSize/2);
 
         var particle = new Particle(shape, material, x, y, z );
         particle.addToScene();
@@ -103,10 +106,12 @@ function createParticles(numP){
 function animateAttractor(){
 
     angle += frequency;
+    for (var i = 0; i < attractors.length; i ++){
+        attractors[i].mesh.position.x += amplitude * Math.cos(angle);
+        attractors[i].mesh.position.y += amplitude * Math.sin(angle);
+        attractors[i].mesh.position.z += amplitude * Math.cos(angle);
+    }
 
-    attractor.mesh.position.x += amplitude * Math.cos(angle);
-    attractor.mesh.position.y += amplitude * Math.sin(angle);
-    attractor.mesh.position.z += amplitude * Math.cos(angle);
 
 }
 
@@ -161,9 +166,6 @@ function init(){
     attractor2.addToScene();
     attractors.push(attractor2);
 
-
-
-
     // add the canvas to the webpage:
     document.body.appendChild(renderer.domElement);
 
@@ -175,7 +177,8 @@ function animate() {
 
     controls.update(); //recalc camera based on control input
 
-    // animateAttractor();
+    animateAttractor();
+
     for ( var i = 0; i < particles.length; i ++){
 
         // get the direction of the force by subtraction then normalize

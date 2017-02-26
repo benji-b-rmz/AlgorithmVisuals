@@ -37,6 +37,10 @@ def phys_attractor():
 def three_attractor():
     return render_template('/physics/3d_attractor.html')
 
+@app.route('/mouseCap')
+def mouseCap():
+    return render_template('/interactive/mouseCap.html')
+
 
 if __name__ == '__main__':
     app.debug= True
