@@ -119,7 +119,7 @@ function updateLabel(){
     }
     else {
 
-        scoreLabel.innerHTML = 'GAME OVER';
+        scoreLabel.innerHTML = 'GAME OVER <br> FINAL SCORE: ' + score;
     }
 
 }
@@ -149,18 +149,20 @@ function onMouseClick( event ){
 
     //calculate the objects intersecting the picking ray
     var intersects = raycaster.intersectObjects(scene.children);
+    if(lives > 0){
+        for( var i = 0; i < intersects.length; i++){
 
-    for( var i = 0; i < intersects.length; i++){
+            console.log(intersects[i]);
+            // intersects[i].object.material.color.set(0xffff00);
+            removeObject(intersects[i].object, particles);
+            scene.remove(intersects[i].object);
+            score += 1;
+            updateLabel();
+            createParticles(1);
 
-        console.log(intersects[i]);
-        // intersects[i].object.material.color.set(0xffff00);
-        removeObject(intersects[i].object, particles);
-        scene.remove(intersects[i].object);
-        score += 1;
-        updateLabel();
-        createParticles(1);
-
+        }
     }
+
 
 }
 
