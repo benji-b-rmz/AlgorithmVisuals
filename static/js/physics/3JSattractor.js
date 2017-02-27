@@ -3,11 +3,14 @@
  */
 // Creating 3D attractor and particle physics simulation using ThreeJS
 
-var scene, camera, renderer, controls;
+var scene;
+var camera;
+var renderer;
+var controls;
 var geometry, material, mesh;
 
 var particles = [],
-    numParticles = 200,
+    numParticles = 20,
     shapeSize = 2,
     sceneSize = 100;
 
@@ -35,16 +38,6 @@ function addSpotLight(x, y, z, color) {
     spotLight.castShadow = false;
     scene.add(spotLight);
 
-}
-
-function createBackground(x, y, z, color){
-    var geom = new THREE.BoxGeometry(x, y, z);
-    var material = new THREE.MeshLambertMaterial({
-        color: color,
-        wireframe: false
-    });
-    var background = new Particle(geom, material, 0, 0, 0); // at origin
-    background.addToScene();
 }
 
 
@@ -85,8 +78,8 @@ function createParticles(numP){
     for ( var i = 0; i < numP; i ++){
 
         var shape = new THREE.BoxGeometry(shapeSize, shapeSize, shapeSize);
-        var material = new THREE.MeshLambertMaterial({
-            color: 0xff0000, wireframe:false
+        var material = new THREE.MeshStandardMaterial({
+            color: 0xffffff, wireframe:false
         });
         var x = getRandomInt(-sceneSize/2, sceneSize/2),
             y = getRandomInt(-sceneSize/2, sceneSize/2),
@@ -101,20 +94,6 @@ function createParticles(numP){
 }
 
 
-
-
-function animateAttractor(){
-
-    angle += frequency;
-    for (var i = 0; i < attractors.length; i ++){
-        attractors[i].mesh.position.x += amplitude * Math.cos(angle);
-        attractors[i].mesh.position.y += amplitude * Math.sin(angle);
-        attractors[i].mesh.position.z += amplitude * Math.cos(angle);
-    }
-
-
-}
-
 function init(){
 
     //set up the scene, camera, lights, controls, and renderer
@@ -127,11 +106,16 @@ function init(){
     camera.position.z = 100;
 
     // lights, positioned above initially
-    addSpotLight(0, 200, 0, 0xffffff);
-    addSpotLight(0, 0, 200, 0xffffff);
+    // addSpotLight(0, 200, 0, 0xffffff);
+    // addSpotLight(0, 0, 200, 0xffffff);
+    var lightColor = 0x00ffff;
+    var sphere = new THREE.SphereGeometry(3, 5, 5);
+    var pointLight = new THREE.PointLight(lightColor, 2.5, 100, 2);
+    pointLight.position.set(0,0,0);
+    pointLight.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial({ color: lightColor })));
+    scene.add( pointLight );
 
-
-    renderer = new THREE.WebGLRenderer();
+    renderer = Detector.webgl? new THREE.WebGLRenderer(): new THREE.CanvasRenderer();
     renderer.autoResize = true;
     renderer.setSize( window.innerWidth, window.innerHeight );
 
@@ -146,25 +130,6 @@ function init(){
     // now create and add the objects to the scene
     createParticles(numParticles);
 
-    var attractor = new Particle(
-        new THREE.BoxGeometry(5, 5, 5),
-        new THREE.MeshLambertMaterial({
-            wireframe:false,
-            color: 0xffff00
-        }),
-        -20,0,0);
-    attractor.addToScene();
-    attractors.push(attractor);
-
-    var attractor2 = new Particle(
-        new THREE.BoxGeometry(5, 5, 5),
-        new THREE.MeshLambertMaterial({
-            wireframe:false,
-            color: 0xffff00
-        }),
-        20,-1,0);
-    attractor2.addToScene();
-    attractors.push(attractor2);
 
     // add the canvas to the webpage:
     document.body.appendChild(renderer.domElement);
@@ -177,22 +142,21 @@ function animate() {
 
     controls.update(); //recalc camera based on control input
 
-    animateAttractor();
+    var origin = new THREE.Vector3(0,0,0);
+
 
     for ( var i = 0; i < particles.length; i ++){
 
         // get the direction of the force by subtraction then normalize
-        for (var j = 0; j < attractors.length; j++){
-            var forceVec = new THREE.Vector3( (attractors[j].mesh.position.x - particles[i].mesh.position.x),
-                (attractors[j].mesh.position.y - particles[i].mesh.position.y),
-                (attractors[j].mesh.position.z - particles[i].mesh.position.z));
+        var forceVec = new THREE.Vector3(
+            (origin.x - particles[i].mesh.position.x),
+            (origin.y - particles[i].mesh.position.y),
+            (origin.z - particles[i].mesh.position.z));
 
-            forceVec.normalize(); // normalize the vector so we only have the direction
-            forceVec.multiplyScalar(0.2); // reduce the strength of the force
+        forceVec.normalize(); // normalize the vector so we only have the direction
+        forceVec.multiplyScalar(0.1); // reduce the strength of the force
 
-            particles[i].applyForce(forceVec);
-
-        }
+        particles[i].applyForce(forceVec);
 
 
         particles[i].update();
