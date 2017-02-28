@@ -9,17 +9,8 @@ var renderer;
 var controls;
 var geometry, material, mesh;
 
-
-
 init();
 animate();
-
-
-// the Particle object, will be passed a geometry, and initial coordinates
-// random int function from mozilla dev network
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 
 
 function init(){
