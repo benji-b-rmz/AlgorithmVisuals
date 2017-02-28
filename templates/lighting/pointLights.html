@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Point Lights{% endblock %}
+
+{% block content %}
+
+    {% block js_files %}
+
+        <script src="{{ url_for('static', filename='js/libs/three.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/OrbitControls.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/libs/Detector.js') }}" type="text/javascript"></script>
+        <script src="{{ url_for('static', filename='js/lighting/pointLights.js') }}"></script>
+
+    {% endblock %}
+
+{% endblock %}

@@ -41,6 +41,12 @@ def three_attractor():
 def mouseCap():
     return render_template('/interactive/mouseCap.html')
 
+@app.route('/lighting/pointLights')
+def point_light():
+    return render_template('/lighting/pointLights.html')
+
+
+
 
 if __name__ == '__main__':
     app.debug= True
