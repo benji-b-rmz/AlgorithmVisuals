@@ -8,10 +8,11 @@ var camera;
 var renderer;
 var controls;
 var geometry, material, mesh;
+var lights = [];
+var objs = [];
 
 init();
 animate();
-
 
 function init(){
 
@@ -27,7 +28,9 @@ function init(){
     var boxGeom = new THREE.BoxGeometry(20, 20, 20);
     var boxMaterial = new THREE.MeshStandardMaterial({color:0xffffff});
     var mainBox = new THREE.Mesh( boxGeom, boxMaterial );
+    objs.push(mainBox);
     scene.add(mainBox);
+
 
     //make a few point lights
     var redColor = 0xff0000,
@@ -44,10 +47,12 @@ function init(){
     greenLight.add( new THREE.Mesh( lightBox, new THREE.MeshBasicMaterial({ color: greenColor })) );
     greenLight.position.set(0,25,25);
 
-
     var blueLight = new THREE.PointLight( blueColor, 2.5, 70, 2);
     blueLight.add( new THREE.Mesh( lightBox, new THREE.MeshBasicMaterial({ color: blueColor })) );
     blueLight.position.set(-25,0,25);
+
+    //add the lights to the global array
+    lights.push(redLight, greenLight, blueLight);
 
     scene.add( redLight, greenLight, blueLight);
 
@@ -67,9 +72,17 @@ function init(){
 
 }
 
+
 function animate() {
 
     requestAnimationFrame( animate ); //call this function up to 60 times per second
+
+    for( var i = 0; i < objs.length; i ++){
+
+        objs[i].rotation.x += Math.PI * 0.01;
+        objs[i].rotation.y += Math.PI * 0.01;
+
+    }
 
     controls.update(); //recalc camera based on control input
 
