@@ -75,7 +75,8 @@ function init(){
 
 function animate() {
 
-    requestAnimationFrame( animate ); //call this function up to 60 times per second
+    requestAnimationFrame( animate );
+    //call this function up to 60 times per second
 
     for( var i = 0; i < objs.length; i ++){
 
@@ -84,7 +85,8 @@ function animate() {
 
     }
 
-    controls.update(); //recalc camera based on control input
+    controls.update();
+    //recalc camera based on control input
 
     renderer.render( scene, camera );
 
