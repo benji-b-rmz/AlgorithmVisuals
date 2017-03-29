@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <title>{% block title %}Alg Visuals{% endblock %}</title>
     {% block stylefiles %}
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
     {% endblock %}
 </head>
 <body>
+
 {% block flash_messages %}
                     {%- with messages = get_flashed_messages(with_categories=true) -%}
                         {% if messages %}
