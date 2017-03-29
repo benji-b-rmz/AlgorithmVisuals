@@ -1,6 +1,6 @@
 # WebGL #
 Visuals using webGL libraries:
-Three.JS, PixiJS
+Three.JS, PixiJS, p5JS
 
 ## Setup: ##
 
