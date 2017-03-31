@@ -25,14 +25,9 @@ var sorting = true;
 function animate(){
 
     requestAnimationFrame(animate);
-    //bubbleSort(circle_array);
+    bubbleSort(circle_array);
     //insertionSort(circle_array);
     var array_copy = circle_array.slice();
-    if (sorting){
-        mergeSort(circle_array, 0, circle_array.length, array_copy);
-        console.log(circle_array);
-        sorting = false;
-    }
 
     displayArray(circle_array);
     // console.log(circle_array);
@@ -77,58 +72,6 @@ function bubbleSort(array){
 
 }
 
-function insertionSort(array){
-
-    for( var i = 1; i < array.length; i++){
-
-        var j = i;
-        while( (j > 0) && (array[j-1].radius > array[j].radius) ){
-            swapElements(array, j-1, j);
-            j = j-1;
-            console.log(j);
-        }
-        console.log(array);
-    }
-
-}
-
-
-function merge(array, startIndex, midIndex, endIndex, workArray){
-
-    var i = Math.abs(startIndex), j = Math.abs(midIndex);
-
-    for(var k  = Math.abs(startIndex); k < endIndex; k++){
-        console.log("i = " + i + ", startIndex = " + startIndex);
-        if ( i < midIndex && (j >= endIndex || array[i].radius <= array[j].radius)){
-            console.log(array[i].radius + "is less than: " + array[j].radius);
-            workArray[k] = array[i];
-            i = i + 1;
-
-        }else{
-
-            workArray[k] = array[j];
-            j = j + 1;
-        }
-
-    }
-
-}
-
-function mergeSort(array, startIndex, endIndex, workarray){
-
-    if((endIndex - startIndex) < 2){
-        return;
-    }
-
-    var midIndex = Math.floor((endIndex+startIndex)/2);
-
-    mergeSort(array, startIndex, midIndex, workarray);
-    mergeSort(array, midIndex, endIndex, workarray);
-
-    //merge the resulting arrays:
-    merge(workarray, startIndex, midIndex, endIndex, array);
-
-}
 
 
 function swapElements(array, i, i2) {
@@ -137,49 +80,3 @@ function swapElements(array, i, i2) {
     array[i2] = temp;
 }
 
-function siftDown(array, start, end){
-
-    var root = start;
-    var swap = null;
-    while ((array.getIndex(root) - 1) <= end){
-
-        var child = array[array.getIndex(root) - 1];
-        swap = root;
-
-        if (array[array.getIndex(swap)].radius < array[array.getIndex(child)].radius){
-            swap = child;
-        }
-        if ((array.getIndex(child) > end) && (array[getIndex(swap)].radius < array[getIndex(child+1)].radius)){
-            swap = array[array.getIndex(child) + 1];
-        }
-        if (swap == root){
-            return
-        }
-        else{
-            swap(array, array[root], array[swap]);
-            root = swap;
-        }
-
-
-    }
-
-}
-
-function heapify(array, count){
-
-
-
-}
-
-function heapSort(array, length){
-
-    heapify(array, count);
-
-    var end = length - 1;
-
-    while(end > 0){
-
-    }
-
-
-}
