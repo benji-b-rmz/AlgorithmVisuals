@@ -30,12 +30,16 @@ function windowResized(){
     centerCanvas();
 }
 
+
+
+
 function setup() {
 
-    background(0);
     F_G = createVector(0, 9.8);
     cnv = createCanvas(window.innerWidth, window.innerHeight);
     centerCanvas();
+    background(100);
+
 
     //initialize the random start time
     START_TIME = Math.floor((Math.random() * 5000) + 1000); //canvas will turn green within
