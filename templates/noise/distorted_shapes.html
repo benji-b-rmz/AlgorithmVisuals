@@ -303,6 +303,12 @@ void main() {
         );
         scene.add( sphereMesh );
 
+        icosahedronMesh = new THREE.Mesh(
+            new THREE.IcosahedronGeometry(20, 50),
+            material
+        );
+        icosahedronMesh.position.set(10, 0, 0);
+        scene.add( icosahedronMesh );
         // create the renderer and attach it to the DOM
         renderer = new THREE.WebGLRenderer();
         renderer.setSize( window.innerWidth, window.innerHeight );
