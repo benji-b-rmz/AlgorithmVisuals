@@ -5,10 +5,12 @@
     <title>Perlin Noise Shaders</title>
     <!--
         Benjamin Ramirez
-        May 13, 2017
-        Modified version of perlin noise sphere found here: https://codepen.io/ya7gisa0/pen/vGJvWw
-        Added orbital controls and added/modified shapes/colors of the scene/renderer
+        June 27, 2017
     -->
+    <script
+			  src="https://code.jquery.com/jquery-3.2.1.min.js"
+			  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+			  crossorigin="anonymous"></script>
     <link  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
 
@@ -298,16 +300,15 @@ void main() {
         scene.add( cubeMesh );
 
         sphereMesh = new THREE.Mesh(
-            new THREE.SphereGeometry(60, 60, 40),
+            new THREE.SphereGeometry(60, 10, 10),
             material
         );
         scene.add( sphereMesh );
 
         icosahedronMesh = new THREE.Mesh(
-            new THREE.IcosahedronGeometry(20, 50),
+            new THREE.IcosahedronGeometry(20, 0),
             material
         );
-        icosahedronMesh.position.set(10, 0, 0);
         scene.add( icosahedronMesh );
         // create the renderer and attach it to the DOM
         renderer = new THREE.WebGLRenderer();
