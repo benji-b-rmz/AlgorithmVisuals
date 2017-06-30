@@ -312,6 +312,27 @@ void main() {
         torusKnotMesh.position.set(10, 10, 0);
         scene.add( torusKnotMesh );
 
+        octahedronMesh = new THREE.Mesh(
+            new THREE.OctahedronGeometry(5, 0),
+            material
+        );
+        octahedronMesh.position.set(-10, -10, 0);
+        scene.add( octahedronMesh );
+
+        tetrahedronMesh = new THREE.Mesh(
+            new THREE.TetrahedronGeometry(5, 0),
+            material
+        );
+        tetrahedronMesh.position.set(0, -10, 0);
+        scene.add( tetrahedronMesh );
+
+        dodecahedronMesh = new THREE.Mesh(
+            new THREE.DodecahedronGeometry(5, 0),
+            material
+        );
+        dodecahedronMesh.position.set(10, -10, 0);
+        scene.add( dodecahedronMesh );
+
     }
 
 
@@ -332,7 +353,6 @@ void main() {
             10000 );
         camera.position.z = 50;
         camera.position.y = 20;
-        {#        camera.position.x = 10;#}
         camera.target = new THREE.Vector3( 0, 0, 0 );
 
         scene.add( camera );
