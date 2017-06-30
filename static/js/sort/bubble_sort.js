@@ -4,7 +4,6 @@ var circle_array = [];
 var renderer = new PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight);
 var stage = new PIXI.Container();
 var NUM_ELEMENTS = 10;
-var CIRC_DISTANCE = 60;
 var MAX_RADIUS = 30;
 
 init();
@@ -21,16 +20,13 @@ function init(){
     }
     document.body.appendChild(renderer.view);
 }
-var sorting = true;
+
 function animate(){
 
     requestAnimationFrame(animate);
     bubbleSort(circle_array);
-    //insertionSort(circle_array);
-    var array_copy = circle_array.slice();
 
     displayArray(circle_array);
-    // console.log(circle_array);
     renderer.render(stage);
 }
 
@@ -44,7 +40,6 @@ function Circle(x, y, radius ) {
         this.graphic.beginFill(0xff00ff);
         this.graphic.drawCircle((this.x/NUM_ELEMENTS) * window.innerWidth + MAX_RADIUS, this.y, this.radius);
         this.graphic.endFill();
-        //stage.addChild(this.graphic);
     }
 
 }
@@ -71,8 +66,6 @@ function bubbleSort(array){
     }while(swap);
 
 }
-
-
 
 function swapElements(array, i, i2) {
     var temp = array[i];

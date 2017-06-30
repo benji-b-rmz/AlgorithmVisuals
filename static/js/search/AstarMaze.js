@@ -3,7 +3,7 @@
  */
 
 /*
-   Solving a randomly generated maze with the A* algorithm
+ Solving a randomly generated maze with the A* algorithm
 
  */
 
@@ -250,12 +250,11 @@ function Astar(start, goal){
     var gScore = initMap(Number.MAX_VALUE);
     gScore[start.col][ start.row] = 0;
 
-    var fScore = initMap(Number.MAX_VALUE); //a map with default score of infinity
-                                    // stores the manhattan distances of the cells to the goal
+    //a map with default score of infinity
+    // stores the manhattan distances of the cells to the goal
+    var fScore = initMap(Number.MAX_VALUE);
 
     fScore[start.col][ start.row] = manhattanDistance(start, goal);
-    // console.log('manhattan distance ' + manhattanDistance(start,goal));
-    //console.log(fScore);
     openSet.push(start);
     var current;
     while (openSet.length > 0){
@@ -267,7 +266,6 @@ function Astar(start, goal){
                 current = openSet[i];
             }
         }
-        //console.log(manhattanDistance(current, goal));
         if (current == goal){
             console.log("SUCCESS");
 
@@ -336,9 +334,9 @@ function init(){
 
     //add lighting in order to see the '3D' shading of the lambert material walls
     var spotLight = new THREE.SpotLight(0xffffff);
-        spotLight.position.set(CUBE_SIZE * COLS/2, CUBE_SIZE * ROWS/2, CUBE_SIZE* ROWS/2);
-        spotLight.castShadow = true;
-        scene.add(spotLight);
+    spotLight.position.set(CUBE_SIZE * COLS/2, CUBE_SIZE * ROWS/2, CUBE_SIZE* ROWS/2);
+    spotLight.castShadow = true;
+    scene.add(spotLight);
 
 
     renderer = new THREE.WebGLRenderer();
@@ -346,7 +344,7 @@ function init(){
     renderer.setSize( window.innerWidth, window.innerHeight);
 
     controls = new THREE.OrbitControls( camera, renderer.domElement );
-				//controls.addEventListener( 'change', render ); // add this only if there is no animation loop (requestAnimationFrame)
+    //controls.addEventListener( 'change', render ); // add this only if there is no animation loop (requestAnimationFrame)
     controls.enableDamping = true;
     controls.dampingFactor = 0.5;
     controls.enableZoom = false;
@@ -409,7 +407,6 @@ function animate(){
 }
 
 window.addEventListener('resize', resizeTHREE, false);
-
 
 function resizeTHREE(){
 
