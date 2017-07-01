@@ -2,10 +2,6 @@
  * Created by benji on 1/18/17.
  */
 
-/**
- * Created by benji on 1/15/17.
- */
-
 // Using THREE js to make a DFS recursive backtracker to generate a maze
 
 var scene, camera, renderer, controls;
@@ -102,7 +98,7 @@ function ThreeCell(col, row, layer){
     this.isCurrent = false;
 
 
-    // the WALLS portion of the CELLbbf
+    // the WALLS portion of the CELL
     //the walls booleans set in the order of top,bot,left, right, front, back
     this.walls = [true,true,true,true,true,true];
     // the geometries for the different walls
@@ -200,7 +196,6 @@ function ThreeCell(col, row, layer){
         }
         else if(this.visited) {
             this.mesh.visible = false;
-            // this.mesh.material = this.visitedMaterial;
         }
         this.setWallMaterial();
     };
@@ -296,7 +291,6 @@ function init(){
 
 
     controls = new THREE.OrbitControls( camera, renderer.domElement );
-				//controls.addEventListener( 'change', render ); // add this only if there is no animation loop (requestAnimationFrame)
     controls.enableDamping = true;
     controls.dampingFactor = 0.25;
     controls.enableZoom = false;
@@ -335,7 +329,6 @@ function animate(){
             }
         }
     }
-    // //cubeAnimation();
     if (traversing) {
         currentCell.visited = true;
         currentCell.isCurrent = false;

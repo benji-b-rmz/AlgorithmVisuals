@@ -2,7 +2,7 @@
  * Created by Benji on 2/12/17.
  * a modified version of Daniel Shiffman's video on perlin noise with P5 JS,
  *  find him here:
- *   http://patreon.com/codingtrain
+ *  http://patreon.com/codingtrain
  *  https://youtu.be/BjoM9oKOAKY
  */
 
@@ -131,7 +131,6 @@ function windowResized(){
 }
 
 function draw() {
-    // background(200,200,200);
 
     randomSeed(10);
 
@@ -160,12 +159,8 @@ function draw() {
     }
 
     for (var i = 0; i < particles.length; i ++){
-        // stroke(111);
-        // line(particles[i].pos.x, particles[i].pos.y, particles[i+1].pos.x, particles[i+1].pos.y);
         stroke(255,0,0);
         strokeWeight(4);
-
-        // point(particles[i].pos.x, particles[i].pos.y);
         particles[i].follow(flowfield);
         particles[i].update();
         particles[i].show();

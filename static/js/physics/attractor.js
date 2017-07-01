@@ -3,7 +3,7 @@
  */
 
 // inspired by Dan Shiffman's video on attractors
-    // check it out here: https://www.youtube.com/watch?v=OAcXnzRNiCY&t=780s
+//  check it out here: https://www.youtube.com/watch?v=OAcXnzRNiCY&t=780s
 
 var NUM_PARTICLES = 200;
 var PARTICLES = [];
@@ -71,7 +71,6 @@ function setup() {
     centerCanvas();
 
     //initialize the particles
-
     for(var i = 0; i < NUM_PARTICLES; i++){
         PARTICLES[i] =  new Particle();
     }
@@ -80,8 +79,6 @@ function setup() {
 
 function draw() {
 
-    // var mouseAttractor = createVector(mouseX, mouseY); //grab the location of the mouse
-    // console.log(mouseAttractor);
     if (mouseIsPressed){
         ellipse(mouseX, mouseY, 50, 50);
         var mouseAttractor = createVector(mouseX, mouseY);

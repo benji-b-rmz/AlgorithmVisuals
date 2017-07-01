@@ -53,7 +53,6 @@ function Particle(shape, material, x, y, z){
 
         this.vel.add(this.acc);
         //limit the velocity vector strength;
-        // this.vel.clamp(minSpeed, maxSpeed);
         this.mesh.position.add(this.vel); //update the position
 
         this.acc.multiplyScalar(0);
@@ -136,7 +135,6 @@ function init(){
     scoreLabel.style.fontFamily = 'Arial';
     scoreLabel.style.fontSize = 'Larger';
     scoreLabel.style.height = 50;
-    // scoreLabel.style.backgroundColor = 'cyan';
     scoreLabel.style.color = 'white';
     updateLabel();
 
@@ -222,7 +220,6 @@ function onMouseClick( event ){
     //from the documentation on raycasting
     //calc mouse position in normalized device coords
     // (-1 to +1) for both components
-
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
 

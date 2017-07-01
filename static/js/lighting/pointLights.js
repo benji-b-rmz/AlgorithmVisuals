@@ -87,7 +87,6 @@ function animate() {
 
     controls.update();
     //recalc camera based on control input
-
     renderer.render( scene, camera );
 
 }

@@ -97,7 +97,6 @@ function createParticles(numP){
 function init(){
 
     //set up the scene, camera, lights, controls, and renderer
-
     scene = new THREE.Scene();
     scene.background = new THREE.Color( 0x111111 );
 
@@ -106,8 +105,6 @@ function init(){
     camera.position.z = 100;
 
     // lights, positioned above initially
-    // addSpotLight(0, 200, 0, 0xffffff);
-    // addSpotLight(0, 0, 200, 0xffffff);
     var lightColor = 0x00ffff;
     var sphere = new THREE.SphereGeometry(3, 5, 5);
     var pointLight = new THREE.PointLight(lightColor, 2.5, 100, 2);
