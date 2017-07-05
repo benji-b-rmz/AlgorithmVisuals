@@ -116,17 +116,13 @@ function init(){
     renderer.autoResize = true;
     renderer.setSize( window.innerWidth, window.innerHeight );
 
-
     controls = new THREE.OrbitControls( camera, renderer.domElement );
     controls.enableDamping = true;
     controls.dampingFactor = 0.5;
     controls.enableZoom = true;
 
-
-
     // now create and add the objects to the scene
     createParticles(numParticles);
-
 
     // add the canvas to the webpage:
     document.body.appendChild(renderer.domElement);
