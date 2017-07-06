@@ -8,6 +8,9 @@ var camera;
 var renderer;
 var controls;
 
+var FLAG_WIDTH = 32,
+    FLAG_HEIGHT = 20,
+    RED_STRIPES = 7;
 
 init();
 animate();
@@ -29,11 +32,23 @@ function addOrbitalControls( camera, rend ) {
 }
 
 function addFlag( scene ){
-    var rectangle = new THREE.Mesh(
-        new THREE.BoxGeometry(17,10,5),
-        new THREE.MeshLambertMaterial({color: 0xF0F0F0})
-    )
-    scene.add( rectangle );
+    // create the white base of the flag
+    var flagGeometry = new THREE.BoxGeometry(FLAG_WIDTH, FLAG_HEIGHT, 5);
+    var flagRectangle = new THREE.Mesh(
+        flagGeometry,
+        new THREE.MeshLambertMaterial({color: 0xFFFFFF})
+    );
+    // add the stripes
+    for(var i = 0; i <= RED_STRIPES; i++){
+        var flagStripe = new THREE.Mesh(
+            new THREE.BoxGeometry(FLAG_WIDTH, FLAG_HEIGHT/13, 6),
+            new THREE.MeshLambertMaterial({color: 0xFF0000})
+        );
+        flagStripe.position.y = FLAG_HEIGHT/2 - ((FLAG_HEIGHT/RED_STRIPES) * i);
+        scene.add(flagStripe);
+    }
+
+    scene.add( flagRectangle );
 }
 
 function init() {
