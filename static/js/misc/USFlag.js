@@ -18,7 +18,7 @@ animate();
 function initLights(scene){
     var lightColor = 0xffffff;
     var sphere = new THREE.SphereGeometry(3, 5, 5);
-    var pointLight = new THREE.PointLight(lightColor, 2.5, 100, 2);
+    var pointLight = new THREE.PointLight(lightColor, 2.5, 200, 2);
     pointLight.position.set(10, 50, 20);
     pointLight.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial({ color: lightColor })));
     scene.add( pointLight );
@@ -38,6 +38,8 @@ function addFlag( scene ){
         flagGeometry,
         new THREE.MeshLambertMaterial({color: 0xFFFFFF})
     );
+    scene.add( flagRectangle );
+
     // add the stripes
     for(var i = 0; i <= RED_STRIPES; i++){
         var flagStripe = new THREE.Mesh(
@@ -47,8 +49,14 @@ function addFlag( scene ){
         flagStripe.position.y = FLAG_HEIGHT/2 - ((FLAG_HEIGHT/RED_STRIPES) * i);
         scene.add(flagStripe);
     }
-
-    scene.add( flagRectangle );
+    // add the blue box
+    var blueGeometry = new THREE.BoxGeometry(FLAG_WIDTH/2, FLAG_HEIGHT/2 + (FLAG_HEIGHT/RED_STRIPES) , 6.5);
+    var blueMesh = new THREE.Mesh (
+        blueGeometry,
+        new THREE.MeshLambertMaterial({color: 0x0000FF})
+    );
+    blueMesh.position.set(-FLAG_WIDTH/4, FLAG_HEIGHT/4 , 0);
+    scene.add(blueMesh);
 }
 
 function init() {
