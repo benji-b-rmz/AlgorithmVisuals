@@ -31,8 +31,6 @@ function windowResized(){
 }
 
 
-
-
 function setup() {
 
     F_G = createVector(0, 9.8);

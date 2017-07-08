@@ -83,7 +83,6 @@ var cols, rows;
 
 var zoff = 0;
 
-var fr;
 var incr = 0.001;
 var num_particles = 1000;
 var particles = [];
@@ -115,8 +114,6 @@ function setup() {
 
     cols = floor(width / scl);
     rows = floor(height / scl);
-    fr = createP('');
-
 
     flowfield = new Array(cols * rows);
     //
@@ -167,7 +164,5 @@ function draw() {
         particles[i].edges();
 
     }
-    fr.html(floor(frameRate()));
-
 
 }

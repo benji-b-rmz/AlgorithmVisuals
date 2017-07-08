@@ -31,12 +31,14 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function addSpotLight(x, y, z, color) {
+function addPointLight(x, y, z, color) {
 
-    var spotLight = new THREE.SpotLight(color);
-    spotLight.position.set(x, y, z);
-    spotLight.castShadow = false;
-    scene.add(spotLight);
+    var sphere = new THREE.SphereGeometry(3, 5, 5);
+    var pointLight = new THREE.PointLight(color, 2.5, 100, 2);
+    pointLight.position.set(x, y, z);
+    pointLight.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial({ color: color })));
+    scene.add( pointLight );
+    scene.add(pointLight);
 
 }
 
@@ -54,7 +56,6 @@ function Particle(shape, material, x, y, z){
 
         this.vel.add(this.acc);
         //limit the velocity vector strength;
-        // this.vel.clamp(minSpeed, maxSpeed);
         this.mesh.position.add(this.vel); //update the position
 
         this.acc.multiplyScalar(0);
@@ -105,12 +106,12 @@ function init(){
     camera.position.z = 100;
 
     // lights, positioned above initially
-    var lightColor = 0x00ffff;
-    var sphere = new THREE.SphereGeometry(3, 5, 5);
-    var pointLight = new THREE.PointLight(lightColor, 2.5, 100, 2);
-    pointLight.position.set(0,0,0);
-    pointLight.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial({ color: lightColor })));
-    scene.add( pointLight );
+    var redColor = 0x00ffff,
+        greenColor = 0x00ff00;
+        cyanColor = 0x00ffff;
+    addPointLight(-10, 0, 0, purpleColor);
+    addPointLight(10, 0, 0, greenColor);
+    addPointLight(0, 0, 0, cyanColor);
 
     renderer = Detector.webgl? new THREE.WebGLRenderer(): new THREE.CanvasRenderer();
     renderer.autoResize = true;
@@ -123,7 +124,6 @@ function init(){
 
     // now create and add the objects to the scene
     createParticles(numParticles);
-
     // add the canvas to the webpage:
     document.body.appendChild(renderer.domElement);
 
