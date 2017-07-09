@@ -10,6 +10,7 @@ var controls;
 var geometry, material, mesh;
 
 var particles = [],
+    attractors = [],
     numParticles = 20,
     shapeSize = 2,
     sceneSize = 100;
@@ -91,7 +92,20 @@ function createParticles(numP){
         particles.push(particle);
 
     }
+}
 
+function addAttractor(x, y, z){
+    var attractor = new THREE.Vector3(x, y, z);
+    attractors.push(attractor);
+}
+
+function addLights(){
+    var redColor = 0xff0000,
+        greenColor = 0x00ff00;
+    cyanColor = 0x00ffff;
+    addPointLight(-10, 0, 0, redColor);
+    addPointLight(10, 0, 0, greenColor);
+    addPointLight(0, 0, 0, cyanColor);
 }
 
 
@@ -106,12 +120,7 @@ function init(){
     camera.position.z = 100;
 
     // lights, positioned above initially
-    var redColor = 0x00ffff,
-        greenColor = 0x00ff00;
-        cyanColor = 0x00ffff;
-    addPointLight(-10, 0, 0, purpleColor);
-    addPointLight(10, 0, 0, greenColor);
-    addPointLight(0, 0, 0, cyanColor);
+    addLights();
 
     renderer = Detector.webgl? new THREE.WebGLRenderer(): new THREE.CanvasRenderer();
     renderer.autoResize = true;
@@ -122,11 +131,38 @@ function init(){
     controls.dampingFactor = 0.5;
     controls.enableZoom = true;
 
+    //add the attractors
+    addAttractor(0, 0, 0);
+    addAttractor(10, 0, 0);
+    addAttractor(-10, 0, 0);
     // now create and add the objects to the scene
     createParticles(numParticles);
     // add the canvas to the webpage:
     document.body.appendChild(renderer.domElement);
 
+}
+
+function applyAttractorForcesToParticles(){
+    // apply a force from every attractor to each particle
+    for(var i = 0; i < attractors.length; i++){
+
+        for ( var j = 0; j < particles.length; j ++){
+
+            // get the direction of the force by subtraction then normalize
+            var forceVec = new THREE.Vector3(
+                (attractors[i].x - particles[j].mesh.position.x),
+                (attractors[i].y - particles[j].mesh.position.y),
+                (attractors[i].z - particles[j].mesh.position.z));
+
+            forceVec.normalize(); // normalize the vector so we only have the direction
+            forceVec.multiplyScalar(0.1); // reduce the strength of the force
+
+            particles[j].applyForce(forceVec);
+            particles[j].update();
+
+        }
+
+    }
 }
 
 function animate() {
@@ -135,26 +171,7 @@ function animate() {
 
     controls.update(); //recalc camera based on control input
 
-    var origin = new THREE.Vector3(0,0,0);
-
-
-    for ( var i = 0; i < particles.length; i ++){
-
-        // get the direction of the force by subtraction then normalize
-        var forceVec = new THREE.Vector3(
-            (origin.x - particles[i].mesh.position.x),
-            (origin.y - particles[i].mesh.position.y),
-            (origin.z - particles[i].mesh.position.z));
-
-        forceVec.normalize(); // normalize the vector so we only have the direction
-        forceVec.multiplyScalar(0.1); // reduce the strength of the force
-
-        particles[i].applyForce(forceVec);
-
-
-        particles[i].update();
-
-    }
+    applyAttractorForcesToParticles();
 
     renderer.render( scene, camera );
 
