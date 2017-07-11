@@ -19,14 +19,15 @@ animate();
 
 function createSceneObjects(scene){
     // first make the plane floor
-    var floorGeom = new THREE.PlaneGeometry(20, 20);
+    var floorGeom = new THREE.BoxGeometry(200, 2, 200);
     var floor = new THREE.Mesh(
         floorGeom,
         new THREE.MeshLambertMaterial({color: 0xffffff})
     );
     floor.receiveShadow = true;
-    floor.position.set(0, -40, 0); //place below the origin
-    floor.rotateX(90.0);
+    floor.castShadow = true;
+    floor.position.set(0, -10, 0); //place below the origin
+    // floor.rotateX(90.0);
     scene.add(floor);
 
     //create objects which cast shadows above the floor
@@ -46,10 +47,25 @@ function addPointLight(x, y, z, color) {
     pointLight.position.set(x, y, z);
     pointLight.castShadow = true;
     pointLight.add( new THREE.Mesh( sphere, new THREE.MeshBasicMaterial({ color: color })));
-    scene.add( pointLight );
     scene.add(pointLight);
 
 }
+
+function addSpotLight(x, y, z, color) {
+    var spotLight = new THREE.SpotLight(color);
+    spotLight.position.set(x, y, z);
+    spotLight.castShadow = true;
+
+    spotLight.shadow.mapSize.width = 1024;
+    spotLight.shadow.mapSize.height = 1024;
+
+    spotLight.shadow.camera.near = 500;
+    spotLight.shadow.camera.far = 4000;
+    spotLight.shadow.camera.fov = 30;
+
+    scene.add(spotLight);
+}
+
 
 function init(){
 
@@ -64,12 +80,14 @@ function init(){
     //the scene's objects
     createSceneObjects(scene);
     addPointLight(0, 40, 0, 0xffffff);
+    addSpotLight(20, 10, 0, 0xff00ff);
 
     //create the renderer
-    renderer = Detector.webgl? new THREE.WebGLRenderer(): new THREE.CanvasRenderer();
+    renderer = Detector.webgl? new THREE.WebGLRenderer({antialias: true}): new THREE.CanvasRenderer();
     renderer.autoResize = true;
     renderer.setSize( window.innerWidth, window.innerHeight );
-
+    renderer.shadowMapEnabled = true;
+    renderer.shadowMapSoft = true;
     //orbit controls(allows zooming(scroll) and rotating(mouse drag))
     controls = new THREE.OrbitControls( camera, renderer.domElement );
     controls.enableDamping = true;
@@ -86,13 +104,6 @@ function animate() {
 
     requestAnimationFrame( animate );
     //call this function up to 60 times per second
-
-    for( var i = 0; i < objs.length; i ++){
-
-        objs[i].rotation.x += Math.PI * 0.01;
-        objs[i].rotation.y += Math.PI * 0.01;
-
-    }
 
     controls.update();
     //recalc camera based on control input
