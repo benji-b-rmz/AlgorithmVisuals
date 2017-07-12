@@ -36,8 +36,32 @@ function createSceneObjects(scene){
         new THREE.MeshLambertMaterial({color: 0xff0000})
     );
     cube.castShadow = true;
-    cube.position.set(-3, 0, 0);
+    cube.position.set(-20, 0, 0);
     scene.add(cube);
+
+    var tetrahedron = new THREE.Mesh(
+        new THREE.TetrahedronGeometry(10, 0),
+        new THREE.MeshLambertMaterial({color: 0x0000ff})
+    );
+    tetrahedron.castShadow = true;
+    tetrahedron.position.set(20, 0, 0);
+    scene.add(tetrahedron);
+
+    torusMesh = new THREE.Mesh(
+        new THREE.TorusGeometry(5, 1, 10, 10),
+        new THREE.MeshLambertMaterial({color:0x00ff00})
+    );
+    torusMesh.castShadow = true;
+    torusMesh.position.set(0, 0, -20);
+    scene.add( torusMesh );
+
+    torusKnotMesh = new THREE.Mesh(
+        new THREE.TorusKnotGeometry(5, 1, 50, 3),
+        new THREE.MeshLambertMaterial({color:0x00ffff})
+    );
+    torusKnotMesh.castShadow = true;
+    torusKnotMesh.position.set(0, 0, 20);
+    scene.add( torusKnotMesh );
 }
 
 function addPointLight(x, y, z, color) {
@@ -75,11 +99,13 @@ function init(){
 
     //the camera obj parameters = (FoV, aspect ratio, znear, zfar)
     camera = new THREE.PerspectiveCamera(90, (window.innerWidth/window.innerHeight), 0.1, 10000);
-    camera.position.z = 100;
+    camera.position.z = 50;
+    camera.position.y = 20;
+    camera.position.x = 20;
 
     //the scene's objects
     createSceneObjects(scene);
-    addPointLight(0, 40, 0, 0xffffff);
+    addPointLight(0, 20, 0, 0xffffff);
     addSpotLight(20, 10, 0, 0xff00ff);
 
     //create the renderer
