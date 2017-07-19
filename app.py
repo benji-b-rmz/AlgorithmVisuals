@@ -1,20 +1,20 @@
-from flask import Flask, render_template, flash, url_for
+from flask import Flask, render_template, flash
 
 app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
+def index():
     return render_template('index.html')
 
 
-@app.route('/<folder>/<something>')
-def project(folder,something):
+@app.route('/<folder>/<page>')
+def project(folder,page):
     try:
-        return render_template('/' + folder + '/' + something + '.html')
+        return render_template('/' + folder + '/' + page + '.html')
     except:
         flash(u'project not found :( ', 'error')
-        return hello_world()
+        return index()
 
 
 if __name__ == '__main__':
